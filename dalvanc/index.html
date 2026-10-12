@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>dalvanc</title>
+<meta name="description" content="Dalvan Carvalho's personal page — temporarily deactivated. Visit pov.dalvanc.com.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121311" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --text: #1a1b19;
+    --muted: #6b6d68;
+    --line: #e3e1da;
+    --logo: #2563eb;
+    --cursor: #1a1b19;
+    --accent: #2563eb;
+    --shadow: 0 1px 2px rgba(20,20,18,.06), 0 12px 32px -12px rgba(20,20,18,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121311;
+      --surface: #1b1c1a;
+      --text: #ecebe6;
+      --muted: #9a9b95;
+      --line: #2a2b28;
+      --logo: #f97316;
+      --cursor: #ffffff;
+      --accent: #f97316;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121311; --surface: #1b1c1a; --text: #ecebe6; --muted: #9a9b95;
+    --line: #2a2b28; --logo: #f97316; --cursor: #ffffff; --accent: #f97316;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column;
+    background: var(--bg); color: var(--text);
+    font: 400 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .3s, color .3s;
+  }
+  a { color: inherit; }
+
+  main {
+    flex: 1;
+    width: 100%; max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(48px, 10vh, 112px) 20px 48px;
+  }
+
+  /* Logo */
+  .logo { display: block; width: clamp(150px, 34vw, 210px); height: auto; color: var(--logo); }
+  .logo .cursor { fill: var(--cursor); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Message */
+  .message {
+    margin: clamp(36px, 7vh, 56px) 0 0;
+    font-size: clamp(1.25rem, 3.4vw, 1.6rem);
+    line-height: 1.45; font-weight: 500;
+    letter-spacing: -0.015em;
+    max-width: 30ch;
+    text-wrap: pretty;
+  }
+  .message .soft { color: var(--muted); font-weight: 400; }
+
+  /* POV card */
+  .pov {
+    display: block; margin-top: 40px;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .pov:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .pov:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .url {
+    flex: 1; min-width: 0;
+    font: 500 .85rem/1 "JetBrains Mono", ui-monospace, monospace;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 999px; padding: 7px 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .url b { color: var(--text); font-weight: 500; }
+
+  .shots {
+    display: flex; gap: 12px;
+    padding: 16px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .shots figure {
+    flex: 0 0 auto; margin: 0;
+    width: calc((100% - 24px) / 3);
+    aspect-ratio: 720 / 1464;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    scroll-snap-align: start;
+  }
+  .shots img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shots:empty { display: none; }
+
+  .info { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 4px 20px 20px; }
+  .info h2 { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+  .info p { margin: 2px 0 0; color: var(--muted); font-size: .92rem; }
+  .go {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 500; font-size: .9rem; color: var(--accent);
+    white-space: nowrap;
+  }
+  .go svg { transition: transform .2s; }
+  .pov:hover .go svg { transform: translateX(3px); }
+
+  footer {
+    width: 100%; max-width: 760px; margin: 0 auto;
+    padding: 24px 20px calc(28px + env(safe-area-inset-bottom));
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    color: var(--muted); font-size: .85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 520px) {
+    .info { flex-direction: column; align-items: flex-start; }
+    .shots figure { width: 62%; }
+    footer { flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo .cursor { animation: none; }
+    .pov, .go svg { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <svg class="logo" viewBox="0 0 494 89" role="img" aria-label="dalvanc">
+    <g fill="currentColor">
+      <path d="M26.646 25.5187C33.4638 25.5187 38.8612 27.9463 42.8382 32.8015V0H57.61V82.5773H43.1223V76.4414C39.0695 81.4878 33.5774 84.0109 26.646 84.0109C19.0708 84.0109 12.7265 81.2201 7.61315 75.6385C2.53772 70.0569 0 63.099 0 54.7648C0 46.4306 2.53772 39.4727 7.61315 33.8911C12.7265 28.3095 19.0708 25.5187 26.646 25.5187ZM29.3731 39.4536C25.131 39.4536 21.7032 40.9255 19.0897 43.8692C16.4762 46.7747 15.1695 50.4066 15.1695 54.7648C15.1695 59.1231 16.4762 62.7741 19.0897 65.7178C21.7032 68.6233 25.131 70.076 29.3731 70.076C33.5774 70.076 36.9863 68.6424 39.5998 65.7751C42.2511 62.8696 43.5768 59.1995 43.5768 54.7648C43.5768 50.3301 42.2511 46.6791 39.5998 43.8119C36.9863 40.9064 33.5774 39.4536 29.3731 39.4536Z"/>
+      <path d="M124.567 27.0097V82.5773H110.079V76.4414C106.026 81.4878 100.534 84.0109 93.6029 84.0109C86.0276 84.0109 79.6833 81.2201 74.57 75.6385C69.4946 70.0569 66.9569 63.099 66.9569 54.7648C66.9569 46.4306 69.4946 39.4727 74.57 33.8911C79.6833 28.3095 86.0276 25.5187 93.6029 25.5187C100.496 25.5187 105.988 28.061 110.079 33.1456V27.0097H124.567ZM96.33 39.4536C92.0878 39.4536 88.66 40.9255 86.0466 43.8692C83.4331 46.7747 82.1263 50.4066 82.1263 54.7648C82.1263 59.1231 83.4331 62.7741 86.0466 65.7178C88.66 68.6233 92.0878 70.076 96.33 70.076C100.534 70.076 103.943 68.6424 106.557 65.7751C109.208 62.8696 110.534 59.1995 110.534 54.7648C110.534 50.3301 109.208 46.6791 106.557 43.8119C103.943 40.9064 100.534 39.4536 96.33 39.4536Z"/>
+      <path d="M152.151 0V82.5773H137.323V0H152.151Z"/>
+      <path d="M218.519 27.0097L196.987 82.5773H179.886L158.126 27.0097H174.261L188.521 66.8073L202.895 27.0097H218.519Z"/>
+      <path d="M277.167 27.0097C277.167 48.7102 277.167 60.8768 277.167 82.5773H262.679V76.4414C258.627 81.4878 253.135 84.0109 246.203 84.0109C238.628 84.0109 232.284 81.2201 227.17 75.6385C222.095 70.0569 219.557 63.099 219.557 54.7648C219.557 46.4306 222.095 39.4727 227.17 33.8911C232.284 28.3095 238.628 25.5187 246.203 25.5187C253.097 25.5187 258.589 28.061 262.679 33.1456V27.0097H277.167ZM248.93 39.4536C244.688 39.4536 241.26 40.9255 238.647 43.8692C236.033 46.7747 234.727 50.4066 234.727 54.7648C234.727 59.1231 236.033 62.7741 238.647 65.7178C241.26 68.6233 244.688 70.076 248.93 70.076C253.135 70.076 256.544 68.6424 259.157 65.7751C261.808 62.8696 263.134 59.1995 263.134 54.7648C263.134 50.3301 261.808 46.6791 259.157 43.8119C256.544 40.9064 253.135 39.4536 248.93 39.4536Z"/>
+      <path d="M320.546 25.5187C326.833 25.5187 331.966 27.5258 335.943 31.5399C339.958 35.5541 341.965 40.7726 341.965 47.1952V82.5773H327.137C327.137 70.6409 327.137 63.9486 327.137 52.0122C327.137 48.0363 326.19 44.9779 324.296 42.837C322.44 40.6579 319.807 39.5683 316.399 39.5683C313.028 39.5683 310.244 40.6579 308.047 42.837C305.85 45.0161 304.752 48.1128 304.752 52.1269V82.5773H289.923V27.0097H304.354V33.547C307.914 28.1948 313.312 25.5187 320.546 25.5187Z"/>
+      <path d="M408.198 25.5187C412.782 25.5187 416.967 26.4362 420.754 28.2713C424.542 30.0681 427.705 32.6486 430.242 36.0129L419.561 45.0161C416.115 41.3078 412.194 39.4536 407.801 39.4536C403.9 39.4536 400.623 40.8681 397.972 43.6972C395.32 46.5262 393.995 50.2154 393.995 54.7648C393.995 59.3142 395.302 63.0034 397.915 65.8325C400.566 68.6615 403.843 70.076 407.744 70.076C412.327 70.076 416.323 68.2027 419.732 64.4562L430.299 73.5741C424.921 80.532 417.554 84.0109 408.198 84.0109C399.487 84.0109 392.423 81.2775 387.007 75.8106C381.59 70.3054 378.882 63.2902 378.882 54.7648C378.882 46.2777 381.59 39.2816 387.007 33.7764C392.423 28.2713 399.487 25.5187 408.198 25.5187Z"/>
+    </g>
+    <path class="cursor" d="M437.185 75.0077H494V89H437.185V75.0077Z"/>
+  </svg>
+
+  <p class="message">
+    <span data-i18n="hey"></span><br>
+    <span class="soft" data-i18n="body"></span>
+  </p>
+
+  <a class="pov" href="https://pov.dalvanc.com" target="_blank" rel="noopener">
+    <div class="bar" aria-hidden="true">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="url">https://<b>pov.dalvanc.com</b></span>
+    </div>
+    <div class="shots" id="shots"></div>
+    <div class="info">
+      <div>
+        <h2>POV</h2>
+        <p data-i18n="povDesc"></p>
+      </div>
+      <span class="go"><span data-i18n="visit"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </div>
+  </a>
+</main>
+
+<footer>
+  <span>© <span id="year"></span> Dalvan Carvalho. <span data-i18n="rights"></span></span>
+  <span>dalvanc.com</span>
+</footer>
+
+<script>
+  /* Screenshots of pov.dalvanc.com, in order.
+     Any image that fails to load is removed automatically. */
+  const SCREENSHOTS = [
+    "screenshots/pov-1.jpg",
+    "screenshots/pov-2.jpg",
+    "screenshots/pov-3.jpg"
+  ];
+
+  const STRINGS = {
+    en: {
+      hey: "hey, you've found my personal page!",
+      body: "right now it's temporarily deactivated, but you can check out other pages of mine, like the one below:",
+      povDesc: "The world through my point of view. Photographs I like, and the places I took them.",
+      visit: "Visit",
+      rights: "All rights reserved.",
+      alt: "Screenshot of POV"
+    },
+    pt: {
+      hey: "opa, você encontrou minha página pessoal!",
+      body: "no momento ela está temporariamente desativada, mas você pode conferir outras páginas minhas, como esta aqui embaixo:",
+      povDesc: "O mundo pelo meu ponto de vista. Fotografias de que gosto, e os lugares onde as tirei.",
+      visit: "Acessar",
+      rights: "Todos os direitos reservados.",
+      alt: "Captura de tela do POV"
+    },
+    es: {
+      hey: "¡hola, encontraste mi página personal!",
+      body: "por ahora está desactivada temporalmente, pero puedes ver otras páginas mías, como la de abajo:",
+      povDesc: "El mundo desde mi punto de vista. Fotografías que me gustan, y los lugares donde las tomé.",
+      visit: "Visitar",
+      rights: "Todos los derechos reservados.",
+      alt: "Captura de pantalla de POV"
+    }
+  };
+
+  // Pick language from the visitor's browser/OS locale (?lang=pt etc. overrides, handy for testing)
+  function pickLang() {
+    const forced = new URLSearchParams(location.search).get("lang");
+    if (forced && STRINGS[forced]) return forced;
+    const prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+    for (const l of prefs) {
+      const base = String(l).toLowerCase().split("-")[0];
+      if (STRINGS[base]) return base;
+    }
+    return "en";
+  }
+
+  const lang = pickLang();
+  const t = STRINGS[lang];
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t[el.dataset.i18n]; });
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Optional theme override for testing: ?theme=light | ?theme=dark
+  const forcedTheme = new URLSearchParams(location.search).get("theme");
+  if (forcedTheme === "light" || forcedTheme === "dark") document.documentElement.dataset.theme = forcedTheme;
+
+  const shots = document.getElementById("shots");
+  SCREENSHOTS.forEach((src, i) => {
+    const fig = document.createElement("figure");
+    const img = new Image();
+    img.src = src;
+    img.alt = `${t.alt} ${i + 1}`;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.onerror = () => fig.remove();
+    fig.appendChild(img);
+    shots.appendChild(fig);
+  });
+</script>
+</body>
+</html>
